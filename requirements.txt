@@ -6,3 +6,4 @@ Pillow
 drf-yasg
 django-cors-headers
 python-dotenv
+drf-spectacular
