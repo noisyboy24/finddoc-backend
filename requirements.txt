@@ -9,3 +9,4 @@ python-dotenv
 drf-spectacular
 django-filter
 requests
+django-multiselectfield
