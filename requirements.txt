@@ -5,3 +5,4 @@ whitenoise
 Pillow
 drf-yasg
 django-cors-headers
+python-dotenv
