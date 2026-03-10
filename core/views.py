@@ -1188,7 +1188,7 @@ class MutaxassisliklarAPIView(APIView):
     
 
 class AiChatAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         message = (request.data.get("message") or "").strip()
