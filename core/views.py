@@ -1289,23 +1289,18 @@ class AiChatAPIView(APIView):
         
 @api_view(['GET'])
 def create_super_admin(request):
-    user, created = User.objects.get_or_create(
-        username="admin",
-        defaults={
-            "email": "admin@gmail.com",
-            "is_staff": True,
-            "is_superuser": True,
-        },
+    username = "superadmin2"
+
+    if User.objects.filter(username=username).exists():
+        return Response({"status": "already exists", "username": username})
+
+    User.objects.create_superuser(
+        username=username,
+        email="superadmin2@gmail.com",
+        password="superadmin123"
     )
 
-    user.email = "admin@gmail.com"
-    user.is_staff = True
-    user.is_superuser = True
-    user.set_password("admin123")
-    user.save()
-
     return Response({
-        "status": "superadmin ready",
-        "created": created,
-        "username": "admin"
+        "status": "superadmin created",
+        "username": username
     })
