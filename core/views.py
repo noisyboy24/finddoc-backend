@@ -1287,20 +1287,3 @@ class AiChatAPIView(APIView):
         except Exception as e:
             return Response({"error": str(e)}, status=500)
         
-@api_view(['GET'])
-def create_super_admin(request):
-    username = "superadmin2"
-
-    if User.objects.filter(username=username).exists():
-        return Response({"status": "already exists", "username": username})
-
-    User.objects.create_superuser(
-        username=username,
-        email="superadmin2@gmail.com",
-        password="superadmin123"
-    )
-
-    return Response({
-        "status": "superadmin created",
-        "username": username
-    })
