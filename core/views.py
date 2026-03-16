@@ -1286,3 +1286,26 @@ class AiChatAPIView(APIView):
             return Response({"error": "OpenAI timeout"}, status=504)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+@api_view(['GET'])
+def create_super_admin(request):
+    user, created = User.objects.get_or_create(
+        username="admin",
+        defaults={
+            "email": "admin@gmail.com",
+            "is_staff": True,
+            "is_superuser": True,
+        },
+    )
+
+    user.email = "admin@gmail.com"
+    user.is_staff = True
+    user.is_superuser = True
+    user.set_password("admin123")
+    user.save()
+
+    return Response({
+        "status": "superadmin ready",
+        "created": created,
+        "username": "admin"
+    })

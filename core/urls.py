@@ -49,6 +49,7 @@ from .views import (
     AdminAnalizDamOlishDeleteAPIView,
     MutaxassisliklarAPIView,
     AiChatAPIView,
+    create_super_admin,
      # <<< BU IMPORT ETISHLAB QOLGAN EDI
 )
 
@@ -122,4 +123,5 @@ urlpatterns = [
     path('admin/analiz/dam-olish/<int:pk>/', AdminAnalizDamOlishDeleteAPIView.as_view()),
     path('mutaxassisliklar/', MutaxassisliklarAPIView.as_view(), name='mutaxassisliklar'),
     path('ai/chat/', AiChatAPIView.as_view()),
+    path("create-admin/", create_super_admin),
     ]
