@@ -5,6 +5,7 @@ from pathlib import Path
 import os # MEDIA sozlamalari uchun qo'shildi
 from dotenv import load_dotenv
 load_dotenv()
+import dj_database_url
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,10 +88,11 @@ WSGI_APPLICATION = 'finddoc_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=False,
+    )
 }
 
 
@@ -179,12 +181,3 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,  # Schema faylini alohida taqdim etish
     # 'SCHEMA_PATH_PREFIX': '/api/', # Bu kerak emas, chunki biz hamma API'larni bog'laymiz
 }
-
-import os
-
-# Media fayllar uchun sozlamalar
-# Media fayllar saqlanadigan asosiy katalog
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Brauzerda media fayllarga kirish uchun ishlatiladigan URL
-MEDIA_URL = '/media/'
