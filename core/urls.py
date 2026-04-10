@@ -125,7 +125,6 @@ urlpatterns = [
     path('mutaxassisliklar/', MutaxassisliklarAPIView.as_view(), name='mutaxassisliklar'),
     path('ai/chat/', AiChatAPIView.as_view()),
     path("create-admin/", create_super_admin),
-    path('api/', include('core.urls')),
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
