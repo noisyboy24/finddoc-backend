@@ -1,6 +1,9 @@
 # D:\BMI\core\urls.py
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
-from django.urls import path
 from .views import (
     AdminAnalizDamOlishListCreateAPIView,
     AdminAnalizDetailAPIView,
@@ -56,6 +59,7 @@ from .views import (
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     # Autentifikatsiya
     path('register/', RegisterAPIView.as_view(), name='register'),
     path('login/', LoginAPIView.as_view(), name='login'),
@@ -124,4 +128,7 @@ urlpatterns = [
     path('mutaxassisliklar/', MutaxassisliklarAPIView.as_view(), name='mutaxassisliklar'),
     path('ai/chat/', AiChatAPIView.as_view()),
     path("create-admin/", create_super_admin),
+    path('api/', include('core.urls')),
     ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
