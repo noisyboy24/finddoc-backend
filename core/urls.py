@@ -90,9 +90,6 @@ urlpatterns = [
     path('available-slots/', AvailableSlotsAPIView.as_view(), name='available-slots'),
     
     # Ma'lum bir navbatni yangilash uchun (PATCH)
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('navbatlar/bekor-qilish/<int:pk>/', NavbatCancelAPIView.as_view(), name='navbat-cancel'),
     path('password-reset/request/', PasswordResetRequestView.as_view(), name='password-reset-request'),
     path('password-reset/confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
