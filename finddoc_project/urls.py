@@ -28,7 +28,5 @@ urlpatterns = [
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
-# DEBUG=True bo'lganda MEDIA fayllarga kirish imkoniyatini ochish
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
+# DEBUG dan qat'i nazar MEDIA fayllar ishlashi uchun
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

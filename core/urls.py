@@ -1,9 +1,5 @@
 # D:\BMI\core\urls.py
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-
+from django.urls import path
 from .views import (
     AdminAnalizDamOlishListCreateAPIView,
     AdminAnalizDetailAPIView,
@@ -53,13 +49,9 @@ from .views import (
     MutaxassisliklarAPIView,
     AiChatAPIView,
     create_super_admin,
-     # <<< BU IMPORT ETISHLAB QOLGAN EDI
 )
 
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
     # Autentifikatsiya
     path('register/', RegisterAPIView.as_view(), name='register'),
     path('login/', LoginAPIView.as_view(), name='login'),
@@ -88,27 +80,27 @@ urlpatterns = [
     # Tekshiruvlar
     path('tekshiruv_narxlari/create/', KlinikaTekshiruviCreateAPIView.as_view(), name='tekshiruv-create'),
     path('available-slots/', AvailableSlotsAPIView.as_view(), name='available-slots'),
-    
-    # Ma'lum bir navbatni yangilash uchun (PATCH)
+
+    # Navbat amaliyotlari
     path('navbatlar/bekor-qilish/<int:pk>/', NavbatCancelAPIView.as_view(), name='navbat-cancel'),
     path('password-reset/request/', PasswordResetRequestView.as_view(), name='password-reset-request'),
     path('password-reset/confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
-    path('analiz/available-slots/',analiz_available_slots,name='analiz-available-slots'),
-    path('analiz/navbat_yaratish/',analiz_navbat_yaratish,name='analiz-navbat-yaratish'),
-    path('shifokor/day-available/',shifokor_day_available,name='shifokor-day-available'),
-    path('analiz/day-available/', analiz_day_available,name='analiz-day-available'),
-    path('analiz/navbatlarim/',AnalizNavbatlarimListAPIView.as_view(),name='analiz-navbatlarim'),
-    path('analiz/navbat-bekor/<int:pk>/',AnalizNavbatCancelAPIView.as_view(),name='analiz-navbat-bekor'),
+    path('analiz/available-slots/', analiz_available_slots, name='analiz-available-slots'),
+    path('analiz/navbat_yaratish/', analiz_navbat_yaratish, name='analiz-navbat-yaratish'),
+    path('shifokor/day-available/', shifokor_day_available, name='shifokor-day-available'),
+    path('analiz/day-available/', analiz_day_available, name='analiz-day-available'),
+    path('analiz/navbatlarim/', AnalizNavbatlarimListAPIView.as_view(), name='analiz-navbatlarim'),
+    path('analiz/navbat-bekor/<int:pk>/', AnalizNavbatCancelAPIView.as_view(), name='analiz-navbat-bekor'),
     path('profile/', ProfileAPIView.as_view(), name='profile'),
     path('admin/clinic/', AdminClinicAPIView.as_view()),
     path('admin/analizlar/', AdminAnalizListAPIView.as_view()),
-     # SHIFOKOR
+
+    # SHIFOKOR
     path('admin/shifokorlar/', AdminShifokorListAPIView.as_view()),
     path('admin/shifokor/<int:pk>/', AdminShifokorDetailAPIView.as_view()),
     path('admin/shifokor/<int:pk>/navbatlar/', AdminShifokorNavbatListAPIView.as_view()),
 
     # ANALIZ
-    path('admin/analizlar/', AdminAnalizListAPIView.as_view()),
     path('admin/analiz/<int:pk>/', AdminAnalizDetailAPIView.as_view()),
     path('admin/analiz/<int:pk>/navbatlar/', AdminAnalizNavbatListAPIView.as_view()),
     path('shifokor/profile/', ShifokorProfileAPIView.as_view()),
@@ -117,14 +109,12 @@ urlpatterns = [
     path('admin/analiz/create/', AdminAnalizCreateAPIView.as_view()),
     path('admin/shifokor/<int:pk>/dam-olish/', AdminDamOlishListCreateAPIView.as_view()),
     path('admin/dam-olish/<int:pk>/', AdminDamOlishDeleteAPIView.as_view()),
-    path('admin/analiz/<int:pk>/work-schedule/',AdminAnalizWorkScheduleAPIView.as_view()),
+    path('admin/analiz/<int:pk>/work-schedule/', AdminAnalizWorkScheduleAPIView.as_view()),
     path('admin/analiz/<int:pk>/dam-olish/', AdminAnalizDamOlishListCreateAPIView.as_view()),
     path('super/assign-admin/', AssignClinicAdminAPIView.as_view()),
     path('admin/shifokor/<int:pk>/work-schedule/', AdminShifokorWorkScheduleAPIView.as_view()),
     path('admin/analiz/dam-olish/<int:pk>/', AdminAnalizDamOlishDeleteAPIView.as_view()),
     path('mutaxassisliklar/', MutaxassisliklarAPIView.as_view(), name='mutaxassisliklar'),
     path('ai/chat/', AiChatAPIView.as_view()),
-    path("create-admin/", create_super_admin),
-    ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('create-admin/', create_super_admin),
+]

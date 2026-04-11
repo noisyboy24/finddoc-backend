@@ -1,12 +1,13 @@
-CORS_ALLOW_ALL_ORIGINS = True
 # D:\BMI\finddoc_project\settings.py - YAKUNIY VA TUZATILGAN SOZLAMALAR
 
 from pathlib import Path
-import os # MEDIA sozlamalari uchun qo'shildi
+import os
 from dotenv import load_dotenv
 load_dotenv()
 import dj_database_url
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,19 +16,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q+0&h8j+p*q-0i1b_2y20(q!+k9_n^0-v61y79b&_n8g5t+c'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-q+0&h8j+p*q-0i1b_2y20(q!+k9_n^0-v61y79b&_n8g5t+c')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']  # Yulduzcha hamma degani
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 AUTHENTICATION_BACKENDS = [
-    'core.backends.EmailOrPhoneBackend', # Biz yozgan yangi logika
-    'django.contrib.auth.backends.ModelBackend', # Standart logika (zaxira uchun)
+    'core.backends.EmailOrPhoneBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 INSTALLED_APPS = [
@@ -41,13 +42,13 @@ INSTALLED_APPS = [
     'corsheaders',
     
     # Uchinchi tomon ilovalari
-    'rest_framework', # DRF asosiy kutubxonasi
-    'rest_framework.authtoken', # Token asosida autentifikatsiya
-    'django_filters', # Filtrlash uchun (FAQAT BIR MARTA!)
-    'drf_yasg', # Swagger/Redoc uchun
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'drf_yasg',
     
     # Loyiha ilovalari
-    'core.apps.CoreConfig', # core ilovasi
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,11 +57,10 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',  # Token Autentifikatsiyasi uchun O'chirildi
+    # 'django.middleware.csrf.CsrfViewMiddleware',  # Token Autentifikatsiyasi uchun O'chirildi
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'finddoc_project.urls'
@@ -85,8 +85,6 @@ WSGI_APPLICATION = 'finddoc_project.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
@@ -97,8 +95,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -116,8 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Tashkent'
@@ -127,23 +121,24 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
+# Static files
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ====================================================================
+# CORS SOZLAMALARI
+# ====================================================================
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # ====================================================================
 # DRF (Django REST Framework) SOZLAMALARI
 # ====================================================================
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -151,33 +146,23 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    # MUHIM YANGILANISH: drf-spectacular ni default schema sifatida belgilash
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', # <<< BU QATORNI QO'SHING
-    
-    # Filtrlar
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ]
 }
 
 # =========================================================================
-# MEDIA FILE CONFIGURATION (Rasm va Yuklangan fayllar uchun)
+# MEDIA FILE CONFIGURATION
 # =========================================================================
-
-# Django yuklangan fayllarni (rasmlar) qaerdan qidirishini aytadi.
-# BASE_DIR allaqachon Path obyekti, shuning uchun uni stringga o'giramiz:
 BASE_DIR_STR = str(BASE_DIR)
 
-# Yuklangan fayllarni saqlash uchun asosiy URL manzili
 MEDIA_URL = '/media/'
-
-# Yuklangan fayllar serverda fizik jihatdan qayerda saqlanishi
 MEDIA_ROOT = os.path.join(BASE_DIR_STR, 'media')
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'FINDDOC API',
     'DESCRIPTION': 'Klinikalar, Shifokorlar va Navbatlarni boshqarish tizimi.',
     'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,  # Schema faylini alohida taqdim etish
-    # 'SCHEMA_PATH_PREFIX': '/api/', # Bu kerak emas, chunki biz hamma API'larni bog'laymiz
+    'SERVE_INCLUDE_SCHEMA': False,
 }
