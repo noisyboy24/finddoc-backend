@@ -3,11 +3,16 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# drf-spectacular importlari
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Asosiy API yo'llari
     path('api/', include('core.urls')),
     
-    # Hujjatlashtirish (Swagger va Redoc)
+    # Swagger va Redoc (hujjatlashtirish)
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
