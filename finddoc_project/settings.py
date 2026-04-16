@@ -160,6 +160,12 @@ BASE_DIR_STR = str(BASE_DIR)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR_STR, 'media')
 
+# Production uchun media fayllarni to'g'ri serv qilish
+if not DEBUG:
+    WHITENOISE_USE_FINDERS = True
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'FINDDOC API',
     'DESCRIPTION': 'Klinikalar, Shifokorlar va Navbatlarni boshqarish tizimi.',
