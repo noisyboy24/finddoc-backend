@@ -160,10 +160,6 @@ REST_FRAMEWORK = {
 # =========================================================================
 BASE_DIR_STR = str(BASE_DIR)
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-MEDIA_URL = 'https://res.cloudinary.com/dkdix8nws/'
-
 SPECTACULAR_SETTINGS = {
     'TITLE': 'FINDDOC API',
     'DESCRIPTION': 'Klinikalar, Shifokorlar va Navbatlarni boshqarish tizimi.',
@@ -171,9 +167,28 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
+# =========================================================================
+# CLOUDINARY SOZLAMALARI (To'g'ri tartibda)
+# =========================================================================
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dkdix8nws',
+    'API_KEY': '987429467786655',
+    'API_SECRET': 'n3Sv0QuiAGUT6zHz0xufP1daU50',
+}
+
+# Cloudinary ni asosiy storage sifatida belgilash
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Media URL ni Cloudinary ga yo'naltirish
+MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['dkdix8nws']}/"
+
+# Cloudinary konfiguratsiyasi
 
 cloudinary.config(
-    cloud_name="dkdix8nws",
-    api_key="987429467786655",
-    api_secret="n3Sv0QuiAGUT6zHz0xufP1daU50"
+    cloud_name = CLOUDINARY_STORAGE['dkdix8nws'],
+    api_key = CLOUDINARY_STORAGE['987429467786655'],
+    api_secret = CLOUDINARY_STORAGE['n3Sv0QuiAGUT6zHz0xufP1daU50']
 )
+
+# Cloudinary storage ni INSTALLED_APPS ga qo'shish (allaqachon qo'shilgan)
