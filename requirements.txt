@@ -13,3 +13,5 @@ django-multiselectfield
 whitenoise
 dj-database-url
 psycopg2-binary
+cloudinary
+django-cloudinary-storage

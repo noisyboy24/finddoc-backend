@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import dj_database_url
+import cloudinary
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     
     # Loyiha ilovalari
     'core.apps.CoreConfig',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -157,14 +160,9 @@ REST_FRAMEWORK = {
 # =========================================================================
 BASE_DIR_STR = str(BASE_DIR)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR_STR, 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Production uchun media fayllarni to'g'ri serv qilish
-if not DEBUG:
-    WHITENOISE_USE_FINDERS = True
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'https://res.cloudinary.com/dkdix8nws/'
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'FINDDOC API',
@@ -172,3 +170,10 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+
+cloudinary.config(
+    cloud_name="dkdix8nws",
+    api_key="987429467786655",
+    api_secret="n3Sv0QuiAGUT6zHz0xufP1daU50"
+)
