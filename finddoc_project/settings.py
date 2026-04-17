@@ -171,6 +171,10 @@ SPECTACULAR_SETTINGS = {
 # CLOUDINARY SOZLAMALARI (To'g'ri tartibda)
 # =========================================================================
 
+# =========================================================================
+# CLOUDINARY SOZLAMALARI
+# =========================================================================
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dkdix8nws',
     'API_KEY': '987429467786655',
@@ -181,14 +185,12 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Media URL ni Cloudinary ga yo'naltirish
-MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['dkdix8nws']}/"
+MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['CLOUD_NAME']}/"
 
 # Cloudinary konfiguratsiyasi
-
+import cloudinary
 cloudinary.config(
-    cloud_name = CLOUDINARY_STORAGE['dkdix8nws'],
-    api_key = CLOUDINARY_STORAGE['987429467786655'],
-    api_secret = CLOUDINARY_STORAGE['n3Sv0QuiAGUT6zHz0xufP1daU50']
+    cloud_name = CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key = CLOUDINARY_STORAGE['API_KEY'],
+    api_secret = CLOUDINARY_STORAGE['API_SECRET']
 )
-
-# Cloudinary storage ni INSTALLED_APPS ga qo'shish (allaqachon qo'shilgan)
