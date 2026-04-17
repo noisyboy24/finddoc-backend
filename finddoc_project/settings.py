@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import dj_database_url
-import cloudinary
+#import cloudinary
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -182,15 +182,16 @@ CLOUDINARY_STORAGE = {
 }
 
 # Cloudinary ni asosiy storage sifatida belgilash
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Media URL ni Cloudinary ga yo'naltirish
-MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['CLOUD_NAME']}/"
+#MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['CLOUD_NAME']}/"
 
-# Cloudinary konfiguratsiyasi
-import cloudinary
-cloudinary.config(
-    cloud_name = CLOUDINARY_STORAGE['CLOUD_NAME'],
-    api_key = CLOUDINARY_STORAGE['API_KEY'],
-    api_secret = CLOUDINARY_STORAGE['API_SECRET']
-)
+# Cloudinary konfiguratsiyasiimport cloudinary
+#cloudinary.config(
+    #cloud_name = CLOUDINARY_STORAGE['CLOUD_NAME'],
+    #api_key = CLOUDINARY_STORAGE['API_KEY'],
+    #api_secret = CLOUDINARY_STORAGE['API_SECRET']
+#)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
