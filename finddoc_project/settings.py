@@ -192,7 +192,7 @@ STORAGES = {
     },
 }
 
-MEDIA_URL = f"https://res.cloudinary.com/dkdix8nws/"
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SPECTACULAR_SETTINGS = {
