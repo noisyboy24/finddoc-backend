@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import dj_database_url
-#import cloudinary
+import cloudinary
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -168,10 +168,6 @@ SPECTACULAR_SETTINGS = {
 }
 
 # =========================================================================
-# CLOUDINARY SOZLAMALARI (To'g'ri tartibda)
-# =========================================================================
-
-# =========================================================================
 # CLOUDINARY SOZLAMALARI
 # =========================================================================
 
@@ -181,17 +177,20 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'n3Sv0QuiAGUT6zHz0xufP1daU50',
 }
 
-# Cloudinary ni asosiy storage sifatida belgilash
-#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+cloudinary.config(
+    cloud_name='dkdix8nws',
+    api_key='987429467786655',
+    api_secret='n3Sv0QuiAGUT6zHz0xufP1daU50',
+)
 
-# Media URL ni Cloudinary ga yo'naltirish
-#MEDIA_URL = f"https://res.cloudinary.com/{CLOUDINARY_STORAGE['CLOUD_NAME']}/"
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Cloudinary konfiguratsiyasiimport cloudinary
-#cloudinary.config(
-    #cloud_name = CLOUDINARY_STORAGE['CLOUD_NAME'],
-    #api_key = CLOUDINARY_STORAGE['API_KEY'],
-    #api_secret = CLOUDINARY_STORAGE['API_SECRET']
-#)
-MEDIA_URL = '/media/'
+MEDIA_URL = f"https://res.cloudinary.com/dkdix8nws/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'FINDDOC API',
+    'DESCRIPTION': 'Klinikalar, Shifokorlar va Navbatlarni boshqarish tizimi.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
