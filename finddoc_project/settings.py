@@ -183,7 +183,14 @@ cloudinary.config(
     api_secret='n3Sv0QuiAGUT6zHz0xufP1daU50',
 )
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 MEDIA_URL = f"https://res.cloudinary.com/dkdix8nws/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
